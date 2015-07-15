@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#PBS -l walltime=12:00:00
+#PBS -l nodes=1:ppn=20
+#PBS -l mem=180GB
+#PBS -N Star_build3
+#PBS -M gah324@nyu.edu
+#PBS -m e
+#PBS -e localhost:/scratch/gah324/log/e_Star_build3
+#PBS -o localhost:/scratch/gah324/log/o_Star_build3
+
+
+module purge
+
+cd /scratch/gah324/AppliedGenomics/Prostat_Project/SRAs/Star_index_3
+
+module load star/intel/2.4
+
+STAR --runMode genomeGenerate --runThreadN 20 --genomeDir ./ --sjdbOverhang 179 --sjdbGTFfile ../Ref_Genome_hg19/genes.gtf --genomeFastaFiles ../Ref_Genome_hg19/WholeGenomeFasta/genome.fa

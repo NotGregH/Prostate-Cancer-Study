@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#PBS -l nodes=1:ppn=16,walltime=20:00:00,mem=100GB
+#PBS -N BM_Counts
+#PBS -M gah324@nyu.edu
+#PBS -m e
+#PBS -e localhost:/scratch/gah324/log/e_counts_BM
+#PBS -o localhost:/scratch/gah324/log/o_counts_BM
+
+
+module load samtools/intel/1.2
+
+
+samtools sort -@ 16 *851* 851.sorted
+samtools sort -@ 16 *852* 852.sorted
+samtools sort -@ 16 *853* 853.sorted
+samtools sort -@ 16 *854* 854.sorted
+samtools sort -@ 16 *855* 855.sorted
+samtools sort -@ 16 *856* 856.sorted
+samtools sort -@ 16 *857* 857.sorted
+samtools sort -@ 16 *858* 858.sorted
+
+mv *.sorted* ../../STAR/SRP029603/.
+
+
+cd /scratch/gah324/AppliedGenomics/Prostat_Project/SRAs/STAR/SRP029603/
+
+module load pysam/intel/0.7.5
+module load htseq/intel/0.6.1
+
+mkdir counts
+
+htseq-count -f bam 851.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/851.count.txt
+htseq-count -f bam 852.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/852.count.txt
+htseq-count -f bam 853.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/853.count.txt
+htseq-count -f bam 854.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/854.count.txt
+htseq-count -f bam 855.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/855.count.txt
+htseq-count -f bam 856.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/856.count.txt
+htseq-count -f bam 857.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/857.count.txt
+htseq-count -f bam 858.sorted.bam ../../Ref_Genome_hg19/genes.gtf > counts/858.count.txt

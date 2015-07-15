@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#PBS -l nodes=1:ppn=16,walltime=10:00:00,mem=100GB
+#PBS -N SRA_Conversion
+#PBS -M gah324@nyu.edu
+#PBS -m e
+#PBS -e localhost:/scratch/gah324/log/e_sort_T2_T3
+#PBS -o localhost:/scratch/gah324/log/o_sort_T2_T3
+
+
+module purge
+
+cd /scratch/gah324/AppliedGenomics/Prostat_Project/SRAs/SRP036848/T2_Bam
+
+module load samtools/intel/1.2
+
+samtools sort -@ 16 *798* 798.sorted
+samtools sort -@ 16 *800* 800.sorted
+samtools sort -@ 16 *805* 805.sorted
+samtools sort -@ 16 *806* 806.sorted
+samtools sort -@ 16 *807* 807.sorted
+samtools sort -@ 16 *808* 808.sorted
+samtools sort -@ 16 *809* 809.sorted
+samtools sort -@ 16 *811* 811.sorted
+samtools sort -@ 16 *815* 815.sorted
+samtools sort -@ 16 *816* 816.sorted
+samtools sort -@ 16 *819* 819.sorted
+samtools sort -@ 16 *820* 820.sorted
+samtools sort -@ 16 *824* 824.sorted
+samtools sort -@ 16 *825* 825.sorted
+samtools sort -@ 16 *827* 827.sorted
+samtools sort -@ 16 *829* 829.sorted
+
+mv *.sorted ../../STAR/SRP036848/.
+
+cd ../T3_Bam
+
+samtools sort -@ 16 *790* 790.sorted
+samtools sort -@ 16 *801* 801.sorted
+samtools sort -@ 16 *803* 803.sorted
+samtools sort -@ 16 *817* 817.sorted
+samtools sort -@ 16 *818* 818.sorted
+samtools sort -@ 16 *858* 858.sorted
+samtools sort -@ 16 *863* 863.sorted
+samtools sort -@ 16 *864* 864.sorted
+samtools sort -@ 16 *867* 867.sorted
+samtools sort -@ 16 *872* 872.sorted
+samtools sort -@ 16 *875* 875.sorted
+samtools sort -@ 16 *876* 876.sorted
+samtools sort -@ 16 *877* 877.sorted
+samtools sort -@ 16 *878* 878.sorted
+samtools sort -@ 16 *879* 879.sorted
+samtools sort -@ 16 *892* 892.sorted
+
+mv *.sorted ../../STAR/SRP036848/.
